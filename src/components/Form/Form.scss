@@ -1,0 +1,36 @@
+.form-button {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-ground {
+    width: 50%;
+    height: auto;
+    margin: auto;
+}
+
+.form-group {
+    margin: 20px 0 30px 0;
+}
+
+.react-datepicker-wrapper {
+    display: block !important;
+}
+
+label {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.my-button {
+    font-weight: 500;
+}
+
+.divided-group {
+    width: 45%;
+}
+
+.multiple-group {
+    display: flex;
+    justify-content: space-between;
+}
