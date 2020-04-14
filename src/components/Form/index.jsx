@@ -8,58 +8,66 @@ import "react-datepicker/dist/react-datepicker.css";
 // Form.propTypes = {
 
 // };
-const important = [
-    { id: 1, value: 'Not important' },
-    { id: 2, value: 'Little important' },
-    { id: 3, value: 'Important' },
-    { id: 4, value: 'Very important' }
-]
-
-const color = [
-    { id: 1, value: 'red' },
-    { id: 2, value: 'black' },
-    { id: 3, value: 'green' },
-    { id: 4, value: 'blue' }
-]
+const important = ['Not important', 'Little important', 'Important', 'Very important']
 
 function Form() {
-    const [startDate, setStartDate] = useState(new Date());
+    // const [name, setName] = useState();
+    // const [describe, setDescribe] = useState();
+    // const [importance, setImportance] = useState();
+    // const [datetime, setDateTime] = useState(new Date());
+
+    const [state, setState] = useState({
+        name: "",
+        describe: "",
+        importance: "Important",
+        datetime: new Date()
+    })
+
+    function onHandleChange(e) {
+        let name = e.target.name;
+        let value = e.target.value;
+        let tempState = {
+            ...state,
+            [name]: value
+        }
+        setState(tempState);
+        console.log(state);
+    };
+
     return (
         <div className="form-ground">
             <div className="form-group">
                 <label>Task name</label>
                 <input type="text"
-                    className="form-control" name="task-name" />
+                    onChange={onHandleChange}
+                    className="form-control" name="name" value={state.name} />
             </div>
 
             <div className="form-group">
                 <label>Describe the task</label>
                 <textarea
-                    className="form-control" name="describe" rows="5" />
-            </div>
-
-            <div className="form-group">
-                <label>Select color</label>
-                <select className="form-control">
-                    <div style={{ background: color }}>dgfdg</div>
-                </select>
+                    onChange={onHandleChange}
+                    className="form-control" name="describe" rows="5" value={state.describe} />
             </div>
 
             <div className="form-group multiple-group">
+
                 <div className="divided-group">
                     <label>Importance</label>
-                    <select className="form-control">
-                        {important.map(item => (
-                            <option key={item.id} value={item.id}> {item.value}</option>
+                    <select className="form-control" onChange={onHandleChange} name="importance" value={state.importance}>
+                        {important.map((item, index) => (
+                            <option key={index} value={item}>{item}</option>
                         ))}
                     </select>
                 </div>
+
                 <div className="divided-group">
                     <label>Date</label>
                     <DatePicker className="form-control"
-                        name="date-time"
-                        selected={startDate}
-                        onChange={date => setStartDate(date)}
+                        name="datetime"
+                        selected={state.datetime}
+                        value={state.datetime}
+                        onChange={date => setState(date)}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
@@ -70,8 +78,8 @@ function Form() {
             </div>
 
             <div className="form-button">
-                <button type="button" class="btn btn-primary my-button">ADD TASK</button>
-                <button type="button" class="btn btn-primary my-button" >CLEAR</button>
+                <button type="button" className="btn btn-primary my-button">ADD TASK</button>
+                <button type="button" className="btn btn-primary my-button" >CLEAR</button>
             </div>
         </div>
 
