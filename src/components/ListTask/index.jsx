@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ListTask.scss';
 import PropTypes from 'prop-types';
 
-// ListTask.PropTypes = {
+ListTask.propTypes = {
+    tasklists: PropTypes.array,
+}
 
-// }
+ListTask.defaultProps = {
+    tasklist: null
+}
 
 
+function ListTask(props) {
+    const { tasklists } = props;
 
-function ListTask() {
+    // const componentTask = tasklists.map(item => {
+    //     return (
+
+    //     )
+    // })
+
     return (
         <div className="list-task">
 

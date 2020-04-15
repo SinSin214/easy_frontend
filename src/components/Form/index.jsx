@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Form.scss'
 import DatePicker from "react-datepicker";
+import moment from 'moment';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -35,6 +36,15 @@ function Form(props) {
         setState(tempState);
     };
 
+    function convertDateTime(param) {
+        let a = moment(param).format('MMMM Do YYYY, HH:mm')
+        console.log(a)
+
+        // setState({
+        //     ...state, datetime: date
+        // })
+    }
+
     function clearInput() {
         let tempState = {
             name: "",
@@ -51,6 +61,7 @@ function Form(props) {
             ...state
         }
         onSubmit(formValue);
+        clearInput();
     }
 
     return (
@@ -85,14 +96,12 @@ function Form(props) {
                     <DatePicker className="form-control"
                         name="datetime"
                         selected={state.datetime}
-                        onChange={date => setState({
-                            ...state, datetime: date
-                        })}
+                        onChange={date => convertDateTime(date)}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
                         timeCaption="time"
-                        dateFormat="MMMM d, yyyy h:mm aa"
+                        dateFormat="MMMM d, yyyy HH:mm"
                     />
                 </div>
             </div>
