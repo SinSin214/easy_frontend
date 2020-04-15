@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import './Form.scss'
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-// Form.propTypes = {
+Form.propTypes = {
+    onSubmit: PropTypes.func,
+};
 
-// };
+Form.defaultProps = {
+    onSubmit: null
+}
+
 const important = ['Not important', 'Little important', 'Important', 'Very important']
 
-function Form() {
-    // const [name, setName] = useState();
-    // const [describe, setDescribe] = useState();
-    // const [importance, setImportance] = useState();
-    // const [datetime, setDateTime] = useState(new Date());
+function Form(props) {
+    const { onSubmit } = props;
 
     const [state, setState] = useState({
         name: "",
@@ -31,8 +33,25 @@ function Form() {
             [name]: value
         }
         setState(tempState);
-        console.log(state);
     };
+
+    function clearInput() {
+        let tempState = {
+            name: "",
+            describe: "",
+            importance: "Important",
+            datetime: new Date()
+        }
+        setState(tempState);
+    }
+
+    function submitForm(e) {
+        e.preventDefault();
+        const formValue = {
+            ...state
+        }
+        onSubmit(formValue);
+    }
 
     return (
         <div className="form-ground">
@@ -66,8 +85,9 @@ function Form() {
                     <DatePicker className="form-control"
                         name="datetime"
                         selected={state.datetime}
-                        value={state.datetime}
-                        onChange={date => setState(date)}
+                        onChange={date => setState({
+                            ...state, datetime: date
+                        })}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
@@ -78,8 +98,8 @@ function Form() {
             </div>
 
             <div className="form-button">
-                <button type="button" className="btn btn-primary my-button">ADD TASK</button>
-                <button type="button" className="btn btn-primary my-button" >CLEAR</button>
+                <button type="button" className="btn btn-primary my-button" onClick={submitForm}>ADD TASK</button>
+                <button type="button" className="btn btn-primary my-button" onClick={clearInput} >CLEAR</button>
             </div>
         </div>
 
