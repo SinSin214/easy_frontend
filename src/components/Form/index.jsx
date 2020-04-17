@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Form.scss'
-import DatePicker from "react-datepicker";
-import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import uniqid from 'uniqid'
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -20,9 +20,10 @@ function Form(props) {
     const { onSubmit } = props;
 
     const [state, setState] = useState({
+        id: "",
         name: "",
         describe: "",
-        importance: "Important",
+        importance: '2',
         datetime: new Date()
     })
 
@@ -36,20 +37,12 @@ function Form(props) {
         setState(tempState);
     };
 
-    function convertDateTime(param) {
-        let a = moment(param).format('MMMM Do YYYY, HH:mm')
-        console.log(a)
-
-        // setState({
-        //     ...state, datetime: date
-        // })
-    }
-
     function clearInput() {
         let tempState = {
+            id: "",
             name: "",
             describe: "",
-            importance: "Important",
+            importance: '2',
             datetime: new Date()
         }
         setState(tempState);
@@ -58,7 +51,8 @@ function Form(props) {
     function submitForm(e) {
         e.preventDefault();
         const formValue = {
-            ...state
+            ...state,
+            id: uniqid(),
         }
         onSubmit(formValue);
         clearInput();
@@ -70,12 +64,12 @@ function Form(props) {
                 <label>Task name</label>
                 <input type="text"
                     onChange={onHandleChange}
-                    className="form-control" name="name" value={state.name} />
+                    className="form-control" name="name" value={state.name} maxlength="25" />
             </div>
 
             <div className="form-group">
                 <label>Describe the task</label>
-                <textarea
+                <textarea maxLength="200"
                     onChange={onHandleChange}
                     className="form-control" name="describe" rows="5" value={state.describe} />
             </div>
@@ -86,7 +80,7 @@ function Form(props) {
                     <label>Importance</label>
                     <select className="form-control" onChange={onHandleChange} name="importance" value={state.importance}>
                         {important.map((item, index) => (
-                            <option key={index} value={item}>{item}</option>
+                            <option key={index} value={index + 1}>{item}</option>
                         ))}
                     </select>
                 </div>
@@ -96,12 +90,14 @@ function Form(props) {
                     <DatePicker className="form-control"
                         name="datetime"
                         selected={state.datetime}
-                        onChange={date => convertDateTime(date)}
+                        onChange={date => setState({
+                            ...state, datetime: date
+                        })}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
                         timeCaption="time"
-                        dateFormat="MMMM d, yyyy HH:mm"
+                        dateFormat="MMMM dd yyyy, HH:mm"
                     />
                 </div>
             </div>

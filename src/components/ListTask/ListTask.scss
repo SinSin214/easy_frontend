@@ -1,0 +1,81 @@
+.card {
+    display: inline-block;
+    width: 31%;
+    margin: 1%;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 8px 8px 20px -10px #000000;
+}
+
+.list-task {
+    flex: 1 0 21%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    width: 90%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.ground {
+    width: 100%;
+    height: 50px;
+}
+
+.card-body {
+    background-color: white;
+    border-radius: 8px;
+    height: 100%;
+}
+
+.card-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.importance1 {
+    background: linear-gradient(0deg, rgb(188, 243, 100) 10%, rgb(38, 129, 11) 100%);
+}
+.importance2 {
+    background: linear-gradient(0deg, rgb(219, 231, 104) 10%, rgb(240, 209, 12) 100%);
+}
+.importance3 {
+    background: linear-gradient(0deg, rgba(252, 194, 69, 1) 10%, rgb(207, 117, 13) 100%);
+}
+.importance4 {
+    background: linear-gradient(0deg, rgb(230, 129, 62) 10%, rgba(199, 24, 0, 1) 100%);
+}
+
+.describe {
+    height: 195px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
+    font-size: 15px;
+}
+
+.my-button {
+    margin-top: 15px;
+    width: 35%;
+}
+
+.list-button {
+    display: flex;
+    justify-content: space-around;
+}
+
+.card-title {
+    font-size: 20px;
+    height: 60px;
+    background: linear-gradient(0deg, rgb(230, 129, 62) 10%, rgba(199, 24, 0, 1) 100%);
+}
+
+.time {
+    text-align: right;
+    font-weight: 600;
+    padding: 10px 0 10px 0;
+    height: 40px;
+    font-size: 18px;
+}
