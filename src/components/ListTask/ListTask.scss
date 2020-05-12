@@ -33,16 +33,16 @@
     text-transform: uppercase;
 }
 
-.importance1 {
+.card.importance1 {
+    background: linear-gradient(0deg, #1cb5e0 0%, #1a4bd3 100%);
+}
+.card.importance2 {
     background: linear-gradient(0deg, rgb(188, 243, 100) 10%, rgb(38, 129, 11) 100%);
 }
-.importance2 {
+.card.importance3 {
     background: linear-gradient(0deg, rgb(219, 231, 104) 10%, rgb(240, 209, 12) 100%);
 }
-.importance3 {
-    background: linear-gradient(0deg, rgba(252, 194, 69, 1) 10%, rgb(207, 117, 13) 100%);
-}
-.importance4 {
+.card.importance4 {
     background: linear-gradient(0deg, rgb(230, 129, 62) 10%, rgba(199, 24, 0, 1) 100%);
 }
 
@@ -57,7 +57,6 @@
 }
 
 .my-button {
-    margin-top: 15px;
     width: 35%;
 }
 
@@ -69,13 +68,37 @@
 .card-title {
     font-size: 20px;
     height: 60px;
-    background: linear-gradient(0deg, rgb(230, 129, 62) 10%, rgba(199, 24, 0, 1) 100%);
+}
+
+.datetime-importance {
+    display: inline-block;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+
+.line-importance {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 2px 6px 2px 6px;
+    font-weight: 600;
+}
+
+.line-importance.importance1 {
+    background: linear-gradient(0deg, #1cb5e0 0%, #1a4bd3 100%);
+}
+.line-importance.importance2 {
+    background: linear-gradient(0deg, rgb(188, 243, 100) 10%, rgb(38, 129, 11) 100%);
+}
+.line-importance.importance3 {
+    background: linear-gradient(0deg, rgb(219, 231, 104) 10%, rgb(240, 209, 12) 100%);
+}
+.line-importance.importance4 {
+    background: linear-gradient(0deg, rgb(218, 142, 72) 10%, rgb(240, 51, 27) 100%);
 }
 
 .time {
-    text-align: right;
     font-weight: 600;
-    padding: 10px 0 10px 0;
-    height: 40px;
+    float: right;
     font-size: 18px;
 }

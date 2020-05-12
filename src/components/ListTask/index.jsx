@@ -5,16 +5,15 @@ import moment from 'moment';
 
 ListTask.propTypes = {
     tasklists: PropTypes.array,
+    handleEdit: PropTypes.func,
 }
 
 ListTask.defaultProps = {
-    tasklist: null
+    tasklist: null,
+    handleEdit: null,
+    handleDelete: null
 }
 
-const des = [
-    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam ipsa impedit, at eaque minima asperiores eveniet quibusdam sit deleniti? Aspernatur odit atque, cum veniam esse animi? Cum quos ullam quasi!',
-    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam ipsa impedit, at eaque minima asperiores eveniet quibusdam sit deleniti? Aspernatur odit atque, cum veniam esse animi? Cum quos ullam quasi!'
-]
 function processData(param) {
     param.sort(function (a, b) {
         return new Date(a.datetime) - new Date(b.datetime);
@@ -26,26 +25,53 @@ function processData(param) {
     return param;
 }
 
+
+
 function ListTask(props) {
     const { tasklists } = props;
 
-    let data = processData(tasklists);
+    function editTask(id) {
+        let { handleEdit } = props;
+        handleEdit(id);
+    }
 
+    function deleteTask(id) {
+        let { handleDelete } = props;
+        handleDelete(id);
+    }
+
+    let data = processData(tasklists);
+    let importance = '';
     let task = data.map(item => {
+        if (item.importance === '1') {
+            importance = 'Not importance'
+        } else if (item.importance === '2') {
+            importance = 'Little importance'
+        } else if (item.importance === '3') {
+            importance = 'Importance'
+        } else if (item.importance === '4') {
+            importance = 'Very importance'
+        }
         return (
             <div key={item.id} className={"card importance" + item.importance}>
                 <div className="card-body">
                     <div className="card-title">{item.name}</div>
                     <div className="tag"></div>
                     <div className="describe">
-                        <p>{des}</p>
+                        <p>{item.describe}</p>
                     </div>
-                    <div className="time">
-                        {item.datetime}
+                    <div className="datetime-importance">
+                        <div className={"line-importance importance" + item.importance}>
+                            {importance}
+                        </div>
+                        <div className="time">
+                            {item.datetime}
+                        </div>
                     </div>
+
                     <div className="list-button">
-                        <button className="btn btn-primary my-button">Edit</button>
-                        <button className="btn btn-primary my-button">Delete</button>
+                        <button className="btn btn-primary my-button" onClick={() => editTask(item.id)}>Edit</button>
+                        <button className="btn btn-primary my-button" onClick={() => deleteTask(item.id)}>Delete</button>
                     </div>
                 </div>
             </div>

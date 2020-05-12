@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Form.scss'
 import DatePicker from 'react-datepicker';
-import uniqid from 'uniqid'
 
 import "react-datepicker/dist/react-datepicker.css";
 
 Form.propTypes = {
     onSubmit: PropTypes.func,
+    task: PropTypes.object
 };
 
 Form.defaultProps = {
-    onSubmit: null
+    onSubmit: null,
+    task: null
 }
 
 const important = ['Not important', 'Little important', 'Important', 'Very important']
 
 function Form(props) {
-    const { onSubmit } = props;
+    const { onSubmit, task } = props;
 
     const [state, setState] = useState({
         id: "",
@@ -26,6 +27,15 @@ function Form(props) {
         importance: '2',
         datetime: new Date()
     })
+
+    const [type, setType] = useState('ADD');
+
+    useEffect(() => {
+        if (task) {
+            setState(task);
+            setType('EDIT');
+        }
+    }, [task])
 
     function onHandleChange(e) {
         let name = e.target.name;
@@ -46,15 +56,16 @@ function Form(props) {
             datetime: new Date()
         }
         setState(tempState);
+        setType('ADD');
     }
 
     function submitForm(e) {
         e.preventDefault();
         const formValue = {
             ...state,
-            id: uniqid(),
+            id: state.id || '',
         }
-        onSubmit(formValue);
+        onSubmit(formValue, type);
         clearInput();
     }
 
@@ -64,7 +75,7 @@ function Form(props) {
                 <label>Task name</label>
                 <input type="text"
                     onChange={onHandleChange}
-                    className="form-control" name="name" value={state.name} maxlength="25" />
+                    className="form-control" name="name" value={state.name} maxLength="25" />
             </div>
 
             <div className="form-group">
@@ -103,7 +114,7 @@ function Form(props) {
             </div>
 
             <div className="form-button">
-                <button type="button" className="btn btn-primary my-button" onClick={submitForm}>ADD TASK</button>
+                <button type="button" className="btn btn-primary my-button" onClick={submitForm}>{type} TASK</button>
                 <button type="button" className="btn btn-primary my-button" onClick={clearInput} >CLEAR</button>
             </div>
         </div>
