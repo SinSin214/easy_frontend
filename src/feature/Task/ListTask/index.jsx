@@ -25,8 +25,6 @@ function processData(param) {
     return param;
 }
 
-
-
 function ListTask(props) {
     const { tasklists } = props;
 
