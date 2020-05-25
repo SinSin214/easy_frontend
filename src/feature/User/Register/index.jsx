@@ -18,13 +18,12 @@ function Register(props) {
     }
 
     const emailInput = modalType === 0 ? '' : (<div className="form-group">
-        <input type="email" className="form-control" value={modalData.email} placeholder="Email" onChange={handleOnChange} required />
+        <input type="email" className="form-control" value={modalData.email} name="email" placeholder="Email" onChange={onHandleChange} required />
     </div>)
 
     let title = define[modalType];
 
-    function handleOnChange(e) {
-        e.preventDefault();
+    function onHandleChange(e) {
         let name = e.target.name;
         let value = e.target.value;
         let temp = {
@@ -37,22 +36,19 @@ function Register(props) {
     function onSubmitModal(e) {
         e.preventDefault();
         if (modalType === 0) {
-            async function callAPI() {
-                await axios.post('/login').then(res => {
-                });
-            }
+            axios.post('account/login').then(res => {
+            });
         } else if (modalType === 1) {
-            async function callAPI() {
-                await axios.post('/forget-password').then(res => {
-                });
-            }
+            axios.post('accyount/forget-password').then(res => {
+            });
         } else if (modalType === 2) {
-            async function callAPI() {
-                await axios.post('/create-account').then(res => {
-                });
-            }
-        } else { return 'Error' }
+            axios({
+                method: 'post',
+                url: '/account/create-account',
+                data: modalData
+            })
 
+        } else { return 'Error' }
     }
 
     return (
@@ -67,10 +63,10 @@ function Register(props) {
                             </div>
                             <div className="modal-body">
                                 <div className="form-group">
-                                    <input type="text" className="form-control" value={modalData.username} placeholder="Username" onChange={handleOnChange} />
+                                    <input type="text" className="form-control" name="username" placeholder="Username" value={modalData.username} onChange={onHandleChange} />
                                 </div>
                                 <div className="form-group">
-                                    <input type="password" className="form-control" value={modalData.password} placeholder="Password" onChange={handleOnChange} />
+                                    <input type="password" className="form-control" name="password" placeholder="Password" value={modalData.password} onChange={onHandleChange} />
                                 </div>
                                 {emailInput}
                                 <div className="form-group">
