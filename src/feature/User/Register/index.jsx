@@ -36,8 +36,13 @@ function Register(props) {
     function onSubmitModal(e) {
         e.preventDefault();
         if (modalType === 0) {
-            axios.post('account/login').then(res => {
-            });
+            axios({
+                method: 'post',
+                url: '/account/login',
+                data: modalData
+            }).then(res => {
+                localStorage.setItem('token', res.data);
+            })
         } else if (modalType === 1) {
             axios.post('accyount/forget-password').then(res => {
             });
