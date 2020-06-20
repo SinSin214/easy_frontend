@@ -8,16 +8,23 @@ const bcrypt = require('bcrypt');
 exports.loginController = function (req, res) {
     let username = req.body.username;
     let password = req.body.password;
+
     User.findOne({ username: username, isActive: true }, function (err, user) {
-        if (!err && user) {
-            if (bcrypt.compareSync(password, user.password)) {
-                let payload = {
-                    username: user.username,
-                    password: user.password
+        if (user) {
+            bcrypt.compare(password, user.password).then((result) => {
+                if (result) {
+                    let payload = { username, password }
+                    let token = jwt.sign(payload, 'ohyeah', { expiresIn: 300 });
+                    let data = { username: username, token: token };
+                    res.send(data);
                 }
-                let jsontoken = jwt.sign(payload, 'ohyeah1', { expiresIn: '1h' })
-                res.send(jsontoken)
-            }
+                else {
+                    res.status(400).send({ error: 'Wrong password' });
+                }
+            })
+        }
+        else {
+            res.status(400).send({ error: 'No user found' });
         }
     })
 };

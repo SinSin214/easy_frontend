@@ -1,10 +1,12 @@
 import React from 'react';
 import './Register.scss';
 import { useState } from 'react';
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
+import * as action from '../../../redux/actions/actions';
 
-
-function Register(props) {
+function Register() {
+    const dispatch = useDispatch();
+    const process = useSelector(state => state.process);
     const [modalType, setModalType] = useState(0);
     const define = ['SIGN IN', 'FORGET PASSWORD', 'CREATE ACCOUNT'];
     const [modalData, setModalData] = useState({
@@ -12,6 +14,7 @@ function Register(props) {
         password: '',
         email: ''
     });
+    let errorMessage = process.error == true ? (<div class="error-message">The information is no correct</div>) : '';
 
     function changeState(param) {
         setModalType(param);
@@ -35,25 +38,16 @@ function Register(props) {
 
     function onSubmitModal(e) {
         e.preventDefault();
-        if (modalType === 0) {
-            axios({
-                method: 'post',
-                url: '/account/login',
-                data: modalData
-            }).then(res => {
-                localStorage.setItem('token', res.data);
-            })
-        } else if (modalType === 1) {
-            axios.post('accyount/forget-password').then(res => {
-            });
-        } else if (modalType === 2) {
-            axios({
-                method: 'post',
-                url: '/account/create-account',
-                data: modalData
-            })
+        switch (modalType) {
+            case 0:
+                dispatch(action.login(modalData))
+                    .then(() => {
+                        window.location.reload();
+                    })
+                break;
 
-        } else { return 'Error' }
+            default: return 'Error';
+        }
     }
 
     return (
@@ -77,6 +71,7 @@ function Register(props) {
                                 <div className="form-group">
                                     <button className="btn btn-primary btn-block btn-lg" type="submit">Accept</button>
                                 </div>
+                                {errorMessage}
                                 <div className="signup">
                                     <button className="forget" onClick={() => changeState(1)}>
                                         Forget password?</button>

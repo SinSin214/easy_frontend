@@ -3,19 +3,20 @@ import './App.scss';
 import Header from './components/Header'
 import Homepage from './components/Homepage'
 import Task from './feature/Task'
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Register from './feature/User/Register'
+import { Router, Route, Switch } from 'react-router-dom';
+import Register from './feature/User/Register';
+import history from './helper/history';
 
 function App() {
 	return (
 		<div className="App">
-			<BrowserRouter>
+			<Router history={history}>
 				<Header />
 				<Switch>
 					<Route exact path="/" component={Homepage} />
 					<Route path='/task' component={Task} />
 				</Switch>
-			</BrowserRouter>
+			</Router>
 			<Register />
 		</div>
 	);
