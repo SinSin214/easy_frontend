@@ -15,7 +15,7 @@ exports.loginController = function (req, res) {
                 if (result) {
                     let payload = { username, password }
                     let token = jwt.sign(payload, 'ohyeah', { expiresIn: 300 });
-                    let data = { username: username, token: token };
+                    let data = { username: username, token: token, userId: user._id };
                     res.send(data);
                 }
                 else {

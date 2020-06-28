@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Form.scss'
 import DatePicker from 'react-datepicker';
-
+import { important } from '../../../constant'
 import "react-datepicker/dist/react-datepicker.css";
 
 Form.propTypes = {
@@ -15,7 +15,6 @@ Form.defaultProps = {
     task: null
 }
 
-const important = ['Not important', 'Little important', 'Important', 'Very important']
 
 function Form(props) {
     const { onSubmit, task } = props;
