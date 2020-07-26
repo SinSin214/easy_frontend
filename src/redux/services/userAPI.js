@@ -10,31 +10,35 @@ export function login(user) {
             return res.data;
         })
         .catch(err => {
-            throw (err);
+            throw (err.response.data.error);
         })
 };
 
-export const forgetPassword = (user) => {
-    return (dispatch) => {
-        return axios({
-            method: 'post',
-            url: '/account/forget-password',
-            data: user
+export function createAccount(user) {
+    return axios({
+        method: 'post',
+        url: '/account/create-account',
+        data: user
+    })
+        .then(res => {
+            return res.data;
         })
-            .then(res => {
-                localStorage.setItem('token', res.data);
-            })
-    };
+        .catch(err => {
+            throw (err.response.data.error);
+        })
 };
 
-export const register = (user) => {
-    return (dispatch) => {
-        return axios({
-            method: 'post',
-            url: '/account/create-account',
-            data: user
+export const checkValidToken = (token) => {
+    return axios({
+        method: 'post',
+        url: '/account/token',
+        data: token
+    })
+        .then(res => {
+            console.log(res);
+            return res.data;
         })
-            .then(res => {
-            })
-    };
-};
+        .catch(err => {
+            throw (err.response.data.error);
+        })
+}

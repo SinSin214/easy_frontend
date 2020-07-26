@@ -2,18 +2,13 @@ import React, { useState } from 'react';
 import uniqid from 'uniqid';
 import Form from './Form';
 import ListTask from './ListTask';
-// import axios from 'axios';
-
+import * as action from '../../redux/actions/actions';
+import { useDispatch } from 'react-redux';
 
 function Task() {
     const [tasklist, setTasklist] = useState(JSON.parse(localStorage.getItem('task')) || []);
     const [task, setTask] = useState();
-    // useEffect(() => {
-    //     async function getAPI() {
-    //         const response = await axios('http://localhost:5000/homepage');
-    //     }
-    //     getAPI();
-    // }, []);
+    const dispatch = useDispatch();
 
     function handleFormSubmit(param, type) {
         let temp;
@@ -45,10 +40,15 @@ function Task() {
         localStorage.setItem('task', JSON.stringify(data));
     }
 
+    function submit() {
+        dispatch(action.createTask());
+    }
+
     return (
         <div className="Task">
             <Form onSubmit={handleFormSubmit} task={task} />
             <ListTask tasklists={tasklist} handleEdit={receivedTaskId} handleDelete={receivedDeletedTask} />
+            <button type="button" className="btn btn-primary my-button" onClick={submit} >Submit</button>
         </div>
     );
 }

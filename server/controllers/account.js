@@ -4,6 +4,7 @@ const verifyMail = require('../features/sendMail');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { SECRECT_WORD } = require('../constant');
 
 exports.loginController = function (req, res) {
     let username = req.body.username;
@@ -14,8 +15,8 @@ exports.loginController = function (req, res) {
             bcrypt.compare(password, user.password).then((result) => {
                 if (result) {
                     let payload = { username, password }
-                    let token = jwt.sign(payload, 'ohyeah', { expiresIn: 300 });
-                    let data = { username: username, token: token };
+                    let token = jwt.sign(payload, SECRECT_WORD, { expiresIn: 300 });
+                    let data = { username: username, token: token, userId: user._id };
                     res.send(data);
                 }
                 else {
@@ -29,39 +30,60 @@ exports.loginController = function (req, res) {
     })
 };
 
-exports.forgetPasswordController = function (req, res) {
+// exports.forgetPasswordController = function (req, res) {
+//     let email = req.body.email;
+//     user.findOne({ email: email, isActive: true }, function (err, user) {
+
+//     })
+//     res.send('Forget');
+// };
+
+exports.createAccountController = function (req, res) {
+    let username = req.body.username;
     let email = req.body.email;
-    user.findOne({ email: email, isActive: true }, function (err, user) {
-
-    })
-    res.send('Forget');
-};
-
-exports.createAccountController = function (req) {
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
-        let user = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: hash,
-            registDate: new Date(),
-            isActive: false
-        });
-
-        user.save(function (err, user) {
-            if (!err) {
-                let token = new EmailToken({
-                    _id: user._id,
-                    token: crypto.randomBytes(16).toString('hex')
-                })
-                token.save(function (err, token) {
-                    if (!err) {
-                        verifyMail.sendVerifyMail(req.headers.host, req.body.email, token.token);
-                    }
-                });
+    let password = req.body.password;
+    User.find({
+        $or: [{
+            username: username
+        }, {
+            email: email
+        }],
+        $and: [{ isActive: true }]
+    }, function (err, user) {
+        if (!err) {
+            if (user.length > 0) {
+                res.status(400).send({ error: 'Username or email existed' });
             }
-        })
+            else {
+                bcrypt.hash(password, 10, (err, hash) => { //không được bỏ err, function sẽ không run
+                    let user = new User({
+                        username: username,
+                        email: email,
+                        password: hash,
+                        registDate: new Date(),
+                        isActive: false
+                    });
+                    user.save(function (err, user) {
+                        if (!err) {
+                            let token = new EmailToken({
+                                _id: user._id,
+                                token: crypto.randomBytes(16).toString('hex')
+                            })
+                            token.save(function (err, token) {
+                                if (!err) {
+                                    verifyMail.sendVerifyMail(req.headers.host, req.body.email, token.token)
+                                        .then(() => {
+                                            res.status(200).send('Success');
+                                        });
+                                }
+                            });
+                        }
+                    })
+                })
+            }
+        }
+        else res.status(400).send({ error: 'Database error' });
     })
-
 }
 
 exports.verifyEmail = function (req, res) {
@@ -76,4 +98,6 @@ exports.verifyEmail = function (req, res) {
     })
 }
 
+exports.validateTokenController = function (req, res) {
 
+};

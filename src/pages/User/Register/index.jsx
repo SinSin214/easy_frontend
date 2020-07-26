@@ -14,7 +14,7 @@ function Register() {
         password: '',
         email: ''
     });
-    let errorMessage = process.error == true ? (<div class="error-message">The information is no correct</div>) : '';
+    let errorMessage = process.error === true ? (<div class="error-message">The information is no correct</div>) : '';
 
     function changeState(param) {
         setModalType(param);

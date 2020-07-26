@@ -1,7 +1,9 @@
-let mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const User = require('./User');
+const Schema = mongoose.Schema;
 
-
-let Task = new mongoose.Schema({
+const Task = new mongoose.Schema({
+    userId: String,
     name: String,
     describe: String,
     importance: Number,
