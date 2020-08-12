@@ -30,13 +30,13 @@ exports.loginController = function (req, res) {
     })
 };
 
-// exports.forgetPasswordController = function (req, res) {
-//     let email = req.body.email;
-//     user.findOne({ email: email, isActive: true }, function (err, user) {
+exports.forgetPasswordController = function (req, res) {
+    let email = req.body.email;
+    user.findOne({ email: email, isActive: true }, function (err, user) {
 
-//     })
-//     res.send('Forget');
-// };
+    })
+    res.send('Forget');
+};
 
 exports.createAccountController = function (req, res) {
     let username = req.body.username;
@@ -87,7 +87,8 @@ exports.createAccountController = function (req, res) {
 }
 
 exports.verifyEmail = function (req, res) {
-    EmailToken.findOne({ token: req.query.token }, function (err, token) {
+    let reqToken = req.query.token;
+    EmailToken.findOneAndDelete({ token: reqToken }, function (err, token) {
         if (!err && token) {
             User.findOneAndUpdate({ _id: token._id }, { $set: { isActive: true } }, function (err, user) {
                 if (!err && user) {

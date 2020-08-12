@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
-
-export function checkIsLogged() {
-    const token = JSON.parse(localStorage.getItem('token'));
-
+export const utilities = {
+    checkIsLogged: () => {
+        let token = JSON.parse(localStorage.getItem('token')).token;
+        return token;
+    }
 }
