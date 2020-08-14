@@ -1,0 +1,24 @@
+.container-fluid{
+    margin-top: 100px;
+    padding: 0 4% 0 4%;
+}
+.card{
+    width: 250px;
+    height: 350px;
+    border-radius: 10px;
+    padding: 10px;
+    .card-title-custom{
+        width: 100%;
+        height: 50px;
+        border-bottom: 1px solid gray;
+    }
+}
+.container-button{
+    overflow: auto;
+}
+.container-background{
+    min-height: 500px;
+    background-color: #9b9999;
+    margin-top: 15px;
+    padding: 20px;
+}
