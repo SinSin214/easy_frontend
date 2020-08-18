@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import './Task.scss';
+import Card from './Card/Card';
+import { Link } from 'react-router-dom';
 function Task() {
     return (
-        <div className="container-fluid">
-            <div className="container-button">
-                <button className="btn btn-primary pull-right">Add task</button>
-            </div>
-            <div className="container-background">
-                <div className="card">
-                    <div className="card-title-custom">
-                        ABCD
-                    </div>
-                </div>
-            </div>
+        <div className="container-task">
+            <button type="button" className="btn btn-outline-dark pull-right">
+                <Link className="nav-link" to="/task/write-memory">
+                    ADD MEMORY
+                </Link>
+                </button>
+            <Card />
+            <Card />
         </div>
     )
 }

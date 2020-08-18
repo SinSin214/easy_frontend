@@ -50,7 +50,6 @@ function Login() {
                         alert(err);
                     })
                 break;
-
             default: return 'Error';
         }
     }

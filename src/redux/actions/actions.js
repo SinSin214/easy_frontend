@@ -27,7 +27,7 @@ export function login(user) {
 
 export function createAccount(user) {
     return dispatch => {
-        // dispatch(isPending());
+        dispatch(isPending());
         return new Promise((resolve, reject) => {
             userAPI.createAccount(user)
                 .then(() => {
