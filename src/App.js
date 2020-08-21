@@ -3,10 +3,9 @@ import "./App.scss";
 import Homepage from "./components/Homepage";
 import Login from "./pages/Login";
 import Task from "./pages/Task";
+import Header from "./components/Header"
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { utilities } from "./helper/utilities";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Navbar from "./components/Navbar/Navbar";
 import WriteMemory from "./pages/Task/Write/write-memory"
 
 function App() {
@@ -17,17 +16,11 @@ function App() {
         <Route
           render={(history) => (
             <div>
-              {/* {history.location.pathname === '/login' ? null : <Header />} */}
-              <div className="container-fluid page-body-wrapper">
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
+              {history.location.pathname === '/login' ? null : <Header />}
                   {isLoggedIn ? (
-                    <Redirect exact from="/login" to="/" />
-                  ) : (
-                    <Redirect to="/login" />
-                  )}
-                  <div className="main-panel">
+                    <Redirect exact from="/login" to="/" />) : (<Redirect to="/login" />)}
+                    <div className="main-container">
+                      <div className="container-fluid">
                       <Switch>
                         {/* <Redirect exact from='/' to='/home' /> */}
                         <Route exact path="/" component={Homepage} />
@@ -35,9 +28,8 @@ function App() {
                         <Route path="/task/write-memory" component={WriteMemory} />
                         <Route path="/task" component={Task} />
                       </Switch>
-                  </div>
-                </div>
-              </div>
+                      </div>
+                      </div>
             </div>
           )}
         ></Route>

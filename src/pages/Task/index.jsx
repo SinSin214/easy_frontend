@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 function Task() {
     return (
         <div className="container-task">
-            <button type="button" className="btn btn-outline-dark pull-right">
+            <div className="section-button">
+            <button type="button" className="btn btn-outline-dark">
                 <Link className="nav-link" to="/task/write-memory">
                     ADD MEMORY
                 </Link>
                 </button>
+                </div>
             <Card />
             <Card />
         </div>

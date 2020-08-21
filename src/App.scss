@@ -1,22 +1,23 @@
-@import "./assets/variables";
-@import "~compass-mixins/lib/compass";
-@import "~compass-mixins/lib/animate";
+@media (min-width: 576px) {
+    .container-fluid {
+        width: 500px;
+    }
+}
 
-@import "~@mdi/font/scss/materialdesignicons";
-@import "~font-awesome/scss/font-awesome";
+@media (min-width: 768px){
+    .container-fluid {
+    width: 680px;
+    }
+}
 
-@import "./assets/mixins/animation";
-@import "./assets/mixins/animation";
-@import "./assets/mixins/buttons";
-@import "./assets/mixins/badges";
-@import "./assets/mixins/misc";
-@import "./assets/mixins/color-functions";
-@import "./assets/mixins/cards";
-@import "./assets/mixins/blockqoute";
+@media (min-width: 992px){
+    .container-fluid {
+    width: 800px;
+    }
+}
 
-@import "./assets/responsive";
-@import "./assets/misc";
-@import "./assets/layout";
-
-@import "./components/Sidebar/sidebar";
-@import "./components/Navbar/navbar";
+@media (min-width: 1200px){
+    .container-fluid {
+    width: 1125px;
+    }
+}

@@ -4,20 +4,6 @@
     margin-left: auto;
 }
 
-@media (min-width: 1200px){
-.container-task{
-        width: 1024px;
-    }
-}
-
-@media (max-width: 992px){
-.container-task{
-        width: 800px;
-    }
-}
-
-@media (min-width: 768px){
-.container-task{
-        width: 600px;
-    }
+.section-button{
+    display: flex;
 }
