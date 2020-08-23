@@ -32,10 +32,23 @@ exports.loginController = function (req, res) {
 
 exports.forgetPasswordController = function (req, res) {
     let email = req.body.email;
-    user.findOne({ email: email, isActive: true }, function (err, user) {
-
+    let password = '123cavangvakoi';
+    bcrypt.hash(password, 10, (err, hash) => {       //không được bỏ err, function sẽ không run
+        if (hash) {
+            let hashPassword = hash;
+            User.findOneAndUpdate({ email: email, isActive: true }, { password: hashPassword }, function (err, user) {
+                if (user && !err) {
+                    verifyMail.sendForgetPassword(email)
+                        .then(() => {
+                            res.status(200).send('Success');
+                        });
+                }
+                else {
+                    res.status(400).send({ error: 'Cannot find email' });
+                }
+            })
+        }
     })
-    res.send('Forget');
 };
 
 exports.createAccountController = function (req, res) {

@@ -6,14 +6,16 @@ function Task() {
     return (
         <div className="container-task">
             <div className="section-button">
-            <button type="button" className="btn btn-outline-dark">
-                <Link className="nav-link" to="/task/write-memory">
-                    ADD MEMORY
+                <button type="button" className="btn btn-outline-dark">
+                    <Link className="nav-link" to="/task/write-memory">
+                        ADD MEMORY
                 </Link>
                 </button>
-                </div>
-            <Card />
-            <Card />
+            </div>
+            <div className="section-content">
+                <Card />
+                <Card />
+            </div>
         </div>
     )
 }

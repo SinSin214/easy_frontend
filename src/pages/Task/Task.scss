@@ -1,9 +1,17 @@
-.container-task{
+.container-task {
     background: #f3f4fa;
     margin-right: auto;
     margin-left: auto;
-}
-
-.section-button{
-    display: flex;
+    .section-button {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .section-content {
+        .card {
+            margin-top: 25px;
+            .thumbail {
+                top: -25px;
+            }
+        }
+    }
 }

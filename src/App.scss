@@ -1,23 +1,27 @@
 @media (min-width: 576px) {
     .container-fluid {
-        width: 500px;
+        width: 565px;
     }
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
     .container-fluid {
-    width: 680px;
+        width: 740px;
     }
 }
 
-@media (min-width: 992px){
+@media (min-width: 992px) {
     .container-fluid {
-    width: 800px;
+        width: 975px;
     }
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
     .container-fluid {
-    width: 1125px;
+        width: 1125px;
     }
+}
+
+.main-container {
+    margin-top: 56px;
 }

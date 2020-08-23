@@ -48,6 +48,22 @@ export function logOut() {
     }
 }
 
+export function forgetPassword(email) {
+    return dispatch => {
+        dispatch(isPending());
+        return new Promise((resolve, reject) => {
+            userAPI.forgetPassword(email)
+                .then(() => {
+                    return resolve()
+                })
+                .catch(err => {
+                    // dispatch(isError());
+                    return reject()
+                })
+        })
+    }
+}
+
 export function getListTask(userId) {
     return dispatch => {
         dispatch(isPending());

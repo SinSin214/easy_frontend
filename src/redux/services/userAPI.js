@@ -28,14 +28,13 @@ export function createAccount(user) {
         })
 };
 
-export const checkValidToken = (token) => {
+export function forgetPassword(email) {
     return axios({
         method: 'post',
-        url: '/account/token',
-        data: token
+        url: '/account/forget-password',
+        data: email
     })
         .then(res => {
-            console.log(res);
             return res.data;
         })
         .catch(err => {

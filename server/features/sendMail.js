@@ -20,7 +20,7 @@ exports.sendVerifyMail = function (host, email, token) {
     return smtpTransport.sendMail(mailOptions);
 }
 
-exports.sendForgetPassword = function (password, email) {
+exports.sendForgetPassword = function (email) {
     let smtpTransport = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 587,
@@ -35,7 +35,7 @@ exports.sendForgetPassword = function (password, email) {
         from: "tranhuynhkha1111@gmail.com",
         to: email,
         subject: "Forget Password",
-        html: 'Hello,\n\n' + 'This is your password:' + password + '\n'
+        html: 'Hello,\n\n' + 'Vì mình lười và cũng như chức năng này chưa quan trọng nên tạm thời mình chưa implement mà sẽ tự thay đổi mật khẩu của bạn thành 123cavangvakoi'
     }
     return smtpTransport.sendMail(mailOptions);
 }

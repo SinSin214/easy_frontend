@@ -50,6 +50,14 @@ function Login() {
                         alert(err);
                     })
                 break;
+            case 2:
+                dispatch(action.forgetPassword(modalData))
+                    .then(() => {
+                        alert('Check email');
+                    }, (err) => {
+                        alert(err);
+                    })
+                break;
             default: return 'Error';
         }
     }
